@@ -1,0 +1,76 @@
+body {
+    background-image: url("/image/layout/weave.png");
+}
+
+#img-perfil {
+    height: 10em;
+    width: 10em;
+    border: 3px solid #ffffff;
+}
+
+.capa-perfil {
+    height: 198px;
+    width: 100%;
+    margin-top: -1%;
+    background-color: #e8f5e9;
+    background-image: url("/image/profile/capa/capa.jpg");
+}
+
+.profile-menu {
+    padding-top: 88px !important;
+    margin-left: -50px !important;
+}
+
+.icone {
+    position: absolute;
+    left: 260px;
+    top: 162px;
+}
+
+/*
+.icone {
+    position: absolute;
+    left: 16%;
+    top: 22%;
+}*/
+
+#page-login {
+    padding: 2%;
+    border: 1px solid #eeeeee;
+}
+
+.tabs .tab a {
+    color: #26a69a !important;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.tabs .indicator {
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+
+.redesociais {
+    width: 25px;
+    height: 25px;
+}
+
+.redes {
+    list-style: none;
+    width: 100%;
+}
+
+.redes li{
+    float: left;
+    margin-right: 5%;
+}
+
+.redes a {
+    float: left;
+    display: block;
+}
