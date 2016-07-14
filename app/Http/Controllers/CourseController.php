@@ -6,14 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class ProfileController extends Controller
+class CourseController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +15,17 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.timeline');
+        return view('profile.courses');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -43,7 +47,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        return view('layouts.profile');
+        //
     }
 
     /**

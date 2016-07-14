@@ -1,4 +1,4 @@
-<div class="navbar-fixed">
+<header class="navbar-fixed">
 
     @if (Auth::guest())
         <nav class="#424242 grey darken-3">
@@ -7,37 +7,53 @@
             </div>
         </nav>
     @else
-        <ul id="perfil" class="dropdown-content">
-            <li><a href="{{ url('profile') }}">Perfil</a></li>
-            <li><a href="{{ url('logout') }}">Sair</a></li>
+
+        <ul id="configuracoes" class="dropdown-content">
+            <li><a href="{{ url('profile') }}"> Alterar Dados </a> </li>
+            <li><a href="{{ url('logout') }}"> Alterar Senha </a> </li>
+            <li><a href="{{ url('logout') }}"> Sair </a> </li>
         </ul>
 
         <nav class="#424242 grey darken-3">
 
-            <ul class="right hide-on-med-and-down">
+            <ul class="right">
                 <a href="{{ url('/') }}" class="brand-logo center">Postagem Acadêmica</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="dropdown-button" href="#!" data-activates="perfil"> {{ Auth::user()->name }} <i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li> <a  href="{{ url('timeline') }}"> {{ Auth::user()->name }} </a> </li>
+                    <li> <a class="dropdown-button" href="#!" data-activates="configuracoes"> Configurações <i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </ul>
 
             <ul id="slide-out" class="side-nav #ffffff white">
-                <li class="center"> {{ Auth::user()->name }} </li>
+                <li> {{ Auth::user()->name }} </li>
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
                         <li>
-                            <a class="collapsible-header">Perfil<i class="mdi-navigation-arrow-drop-down"></i></a>
+                            <a class="collapsible-header"> Perfil <i class="mdi-navigation-arrow-drop-down"></i></a>
                             <div class="collapsible-body">
                                 <ul>
-                                    <li><a href="#!">Post</a></li>
-                                    <li><a href="#!">Perfil</a></li>
-                                    <li><a href="#!">Disciplinas</a></li>
+                                    <li><a href="{{ url('/timeline') }}">Posts</a></li>
+                                    <li><a href="{{ url('/courses') }}">Disciplinas</a></li>
+                                    <li><a href="{{ url('/post') }}">Cadastrar</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
                 </li>
-                <li><a href="#!">Sair</a></li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header"> Configurações <i class="mdi-navigation-arrow-drop-down"></i></a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="{{ url('/timeline') }}"> Alterar Perfil </a></li>
+                                    <li><a href="{{ url('/courses') }}"> Alterar Senha </a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{{ url('logout') }}"> Sair </a> </li>
             </ul>
 
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
@@ -45,13 +61,13 @@
         </nav>
     @endif
 
-</div>
+</header>
 
 <script>
     $('.button-collapse').sideNav({
-                menuWidth: 300, // Default is 240
-                edge: 'right', // Choose the horizontal origin
-                closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            }
+            menuWidth: 300, // Default is 240
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        }
     );
 </script>

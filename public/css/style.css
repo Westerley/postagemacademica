@@ -13,12 +13,20 @@ body {
     width: 100%;
     margin-top: -1%;
     background-color: #e8f5e9;
-    background-image: url("/image/profile/capa/capa.jpg");
 }
 
 .profile-menu {
-    padding-top: 88px !important;
+    margin-top: 90px !important;
     margin-left: -50px !important;
+    background-color: transparent;
+}
+
+.menu {
+    color: #26a69a !important;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-right: 10%;
+    float: left;
 }
 
 .icone {
@@ -27,42 +35,99 @@ body {
     top: 162px;
 }
 
-/*
-.icone {
-    position: absolute;
-    left: 16%;
-    top: 22%;
-}*/
+.descricao-perfil {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.descricao-perfil p{
+    font-weight: 500;
+}
+
+.descricao-perfil span{
+    color: #26a69a !important;
+}
+
+@media only screen and (max-width: 1246px) {
+
+    .icone {
+        position: absolute;
+        left: 220px;
+        top: 164px;
+    }
+
+}
+
+@media only screen and (max-width: 1180px) {
+
+    .icone {
+        position: absolute;
+        left: 200px;
+        top: 162px;
+    }
+
+    .profile-menu {
+        margin-top: 97px !important;
+        margin-left: -50px !important;
+        background-color: transparent;
+    }
+
+}
+
+@media only screen and (max-width: 1119px) {
+
+    .icone {
+        position: absolute;
+        left: 42%;
+        top: 110px;
+    }
+
+    .profile-menu {
+        margin-top: 147px !important;
+        margin-left: -38% !important;
+        background-color: transparent;
+    }
+
+}
+
+@media only screen and (max-width: 992px) {
+
+    .icone {
+        position: absolute;
+        left: 42%;
+        top: 110px;
+    }
+
+    .profile-menu {
+        margin-top: 2px !important;
+        margin-left: -15% !important;
+        background-color: transparent;
+    }
+
+}
+
+@media only screen and (max-width: 790px) {
+
+    .icone {
+        position: absolute;
+        left: 38%;
+        top: 110px;
+    }
+
+    .profile-menu {
+        margin-top: 2px !important;
+        margin-left: -18% !important;
+        background-color: transparent;
+    }
+
+}
 
 #page-login {
     padding: 2%;
     border: 1px solid #eeeeee;
 }
 
-.tabs .tab a {
-    color: #26a69a !important;
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-.tabs .indicator {
-    background-color: transparent !important;
-}
-
-@media only screen and (max-width: 992px) {
-    header, main, footer {
-        padding-left: 0;
-    }
-}
-
-.redesociais {
-    width: 25px;
-    height: 25px;
-}
-
 .redes {
     list-style: none;
-    width: 100%;
 }
 
 .redes li{
@@ -71,6 +136,14 @@ body {
 }
 
 .redes a {
-    float: left;
-    display: block;
+    color: rgba(255,255,255,0.7);
+}
+
+.redes a:hover {
+    color: rgb(255,255,255);
+}
+
+.footer-copyrigh {
+    font-size: 2em !important;
+    color: rgba(255, 255, 255, 0.7) !important;
 }

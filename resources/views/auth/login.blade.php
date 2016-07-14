@@ -98,10 +98,8 @@
 
                     <div class="divider"></div>
 
-                    <br>
-
                     <div class="row">
-                        Esqueceu a <a href="{{ url('/password/reset') }}"> senha </a> ? <br>
+                        <p class="center"> Esqueceu a <a href="{{ url('/password/reset') }}"> senha </a> ? </p>
                     </div>
 
                 </form>

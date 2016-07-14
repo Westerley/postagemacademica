@@ -4,8 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link type="text/css" href="/css/icon.css" rel="stylesheet" media="screen,projection">
-        <link type="text/css" href="/css/style.css" rel="stylesheet" media="screen,projection">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons" >
+        <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen,projection">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     </head>
 
     <body>
@@ -14,18 +15,28 @@
 
         @include('include.menu')
 
-        <div class="container">
+        <main>
 
-            <div class="row white">
+            <div class="container">
 
-                @yield('content')
+                <div class="row white">
+
+                    @yield('content')
+
+                </div>
 
             </div>
 
-        </div>
+        </main>
 
         @include('include.footer')
 
     </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>

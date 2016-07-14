@@ -4,8 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link type="text/css" href="/css/icon.css" rel="stylesheet" media="screen,projection">
         <link type="text/css" href="/css/style.css" rel="stylesheet" media="screen,projection">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     </head>
 
     <body>
@@ -14,11 +15,11 @@
 
         @include('include.menu')
 
-        <div class="container">
+        <main class="container">
 
-            <div class="row">
+            <header class="row">
 
-                <div class="capa-perfil"> </div>
+                <div class="capa-perfil" style="background-image: url('/image/profile/cape/capa.jpg');"> </div>
 
                 <div class="container icone">
                     <div class="row">
@@ -26,16 +27,16 @@
                             <img src="/image/profile/user/sem_foto.png" class="responsive-img" id="img-perfil">
                         </div>
                         <div class="col s12 m12 l9 profile-menu">
-                            <ul class="tabs N/A transparent">
-                                <li class="tab col s2 l3"> <a class="active" href="#timeline"> Posts realizados </a> </li>
-                                <li class="tab col s2 l3"> <a href="#profile"> Perfil </a> </li>
-                                <li class="tab col s2 l3"> <a href="#post"> Cadastrar Post </a> </li>
+                            <ul class="N/A transparent">
+                                <li> <a class="menu" href="{{ url('/timeline') }}"> POSTS </a> </li>
+                                <li> <a class="menu" href="{{ url('/courses') }}"> DISCIPLINAS </a> </li>
+                                <li> <a class="menu" href="{{ url('/post') }}"> CADASTRAR </a> </li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-            </div>
+            </header>
 
             <div class="row white" style="margin-top: -2%;">
 
@@ -45,27 +46,11 @@
 
                 <br>
 
-                <div id="timeline" class="col s12">
-
-                    @include('profile.timeline')
-
-                </div>
-
-                <div id="profile" class="col s8 offset-s2">
-
-                    @include('profile.profile')
-
-                </div>
-
-                <div id="post" class="col s8 offset-s2">
-
-                    @include('profile.post')
-
-                </div>
+                @yield('content')
 
             </div>
 
-        </div>
+        </main>
 
         @include('include.footer')
 
