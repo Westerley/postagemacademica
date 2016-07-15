@@ -128,9 +128,12 @@ body {
 
 .redes {
     list-style: none;
+    font-size: 1.7em;
+    margin-left: 42%;
 }
 
 .redes li{
+    margin: auto;
     float: left;
     margin-right: 5%;
 }
@@ -143,7 +146,37 @@ body {
     color: rgb(255,255,255);
 }
 
+.page-footer {
+    margin: auto;
+    text-align: center;
+}
+
 .footer-copyrigh {
     font-size: 2em !important;
     color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.votacao span{
+    padding: 1%;
+}
+
+.votacao .download {
+    float: right;
+    font-size: 0.8em;
+}
+
+.votacao a {
+    color: #26a69a;
+}
+
+.votacao a:hover {
+    color: #00b0ff;
+}
+
+.votacao i {
+    font-size: 1.7em;
+}
+
+.slide-out span {
+    color: black !important;
 }

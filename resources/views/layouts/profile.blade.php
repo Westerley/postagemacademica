@@ -26,11 +26,11 @@
                         <div class="col s12 m12 l3">
                             <img src="/image/profile/user/sem_foto.png" class="responsive-img" id="img-perfil">
                         </div>
-                        <div class="col s12 m12 l9 profile-menu">
+                        <div class="col s12 m12 l9 profile-menu hide-on-med-and-down">
                             <ul class="N/A transparent">
                                 <li> <a class="menu" href="{{ url('/timeline') }}"> POSTS </a> </li>
                                 <li> <a class="menu" href="{{ url('/courses') }}"> DISCIPLINAS </a> </li>
-                                <li> <a class="menu" href="{{ url('/post') }}"> CADASTRAR </a> </li>
+                                <li> <a class="menu" href="{{ url('/post') }}"> POSTAR </a> </li>
                             </ul>
                         </div>
                     </div>
@@ -40,11 +40,13 @@
 
             <div class="row white" style="margin-top: -2%;">
 
-                <br> <br>
+                <span class="hide-on-med-and-down">
+                    <br> <br>
 
-                <hr>
+                    <hr>
 
-                <br>
+                    <br>
+                </span>
 
                 @yield('content')
 

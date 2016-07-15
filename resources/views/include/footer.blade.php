@@ -1,19 +1,15 @@
 <footer class="page-footer #424242 grey darken-3">
 
-    <div class="container">
+    <div class="container center">
 
         <div class="row">
 
-            <div class="col s12 m12 l12">
-
-                <ul class="redes">
-                    <li> <a href="#"> <i class="fa fa-facebook fa-2x"> </i> </a> </li>
-                    <li> <a href="#"> <i class="fa fa-twitter fa-2x"> </i> </a> </li>
-                    <li> <a href="#"> <i class="fa fa-google fa-2x"> </i> </a> </li>
-                    <li> <a href="#"> <i class="fa fa-envelope fa-2x"> </i> </a> </li>
-                </ul>
-
-            </div>
+            <ul class="redes">
+                <li> <a href="#"> <i class="fa fa-facebook"> </i> </a> </li>
+                <li> <a href="#"> <i class="fa fa-twitter"> </i> </a> </li>
+                <li> <a href="#"> <i class="fa fa-google"> </i> </a> </li>
+                <li> <a href="#"> <i class="fa fa-envelope"> </i> </a> </li>
+            </ul>
 
         </div>
 

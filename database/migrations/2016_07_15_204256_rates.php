@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class Rates extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,10 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_profile')->unsigned();
-            $table->integer('id_course')->unsigned();
-            $table->string('title', 100);
-            $table->text('content');
-            $table->string('arquivo', 255);
-            $table->integer('like')->default(0);
-            $table->integer('unlike')->default(0);
+            $table->integer('id_post')->unsigned();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('posts');
+        Schema::drop('rates');
     }
 }

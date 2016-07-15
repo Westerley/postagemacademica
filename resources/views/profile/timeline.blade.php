@@ -2,18 +2,18 @@
 
 @section('content')
 
-    <div class="col s12 l4 m4 descricao-perfil">
+    <div class="col s12 m12 l4 descricao-perfil">
         <div class="card-panel white">
-            <p> Vinculo:           <span> Aluno </span> </p>
-            <p> Nome:              <span> Westerley Reis </span> </p>
-            <p> Email:  <span> Westerreis_@hotmail.com </span> </p>
-            <p> Celular:  <span> (67) 99999-9999 </span> </p>
-            <p> Semestre:          <span> 7º </span> </p>
-            <p> Posts Realizados:  <span> 10 </span> </p>
+            <p> Vinculo:           <span>  </span> </p>
+            <p> Nome:              <span> {{ Auth::user()->name }} </span> </p>
+            <p> Email:  <span> {{ Auth::user()->email }} </span> </p>
+            <p> Celular:  <span>  </span> </p>
+            <p> Semestre:          <span>  </span> </p>
+            <p> Posts Realizados:  <span>  </span> </p>
         </div>
     </div>
 
-    <div class="col s12 l8 m8">
+    <div class="col s12 m12 l8">
 
         <section>
             <div class="input-field col s12">
@@ -29,60 +29,38 @@
 
         <br>
 
-        <div class="section">
+        @forelse($posts as $post)
 
-            <div class="chip">
-                <img src="/image/profile/user/sem_foto.png" alt="Contact Person">
-                Westerley Reis
-            </div>
+            <section class="section">
 
-            <div>
-                <h5> Arvore Binária em Java </h5>
+                <header>
+                    <div class="chip">
+                        <img src="/image/profile/user/sem_foto.png" alt="Contact Person">
+                        {{ Auth::user()->name }}
+                    </div>
 
-                <p> Chips can be used to represent small blocks of information. They are most commonly
-                    used either for contacts or for tags. Chips can be used to represent
-                    small blocks of information. They are most commonly used either for contacts or for tags.
-                </p>
+                    <h5> {{ $post->title }} </h5>
+                </header>
 
-                Download: <a href="anexos/"> arquivo </a>
+                <article>
+                    <p> {{ $post->content }} </p>
+                </article>
 
-                <p>
-                    <a href="#"> <i class="small material-icons"> thumb_up </i> </a>
-                    <a href="#"> <i class="small material-icons"> thumb_down </i> </a>
-                </p>
-            </div>
+                <footer class="votacao">
+                    <p>
+                        <a href="#"> <i class="fa fa-thumbs-o-up fa-2x"> </i> </a> <span> ({{ $post->like }}) </span>
+                        <a href="#"> <i class="fa fa-thumbs-o-down fa-2x"> </i> </a> <span> ({{ $post->unlike }}) </span>
+                        <span class="download"> <a href="/download/{{ $post->arquivo }}"> <i class="fa fa-download"> Download </i> </a> </span>
+                    </p>
+                </footer>
 
-        </div>
+            </section>
 
-        <div class="divider"> </div>
+            <div class="divider"> </div>
 
-        <div class="section">
-
-            <div class="chip">
-                <img src="/image/profile/user/sem_foto.png" alt="Contact Person">
-                Westerley Reis
-            </div>
-
-            <div>
-                <h5> CRUD em Ruby </h5>
-
-                <p> Chips can be used to represent small blocks of information. They are most commonly
-                    used either for contacts or for tags. Chips can be used to represent
-                    small blocks of information. They are most commonly used either for contacts or for tags.
-                </p>
-
-                Download: <a href="anexos/"> arquivo </a>
-
-                <p>
-                    <a href="#"> <i class="small material-icons"> thumb_up </i> </a>
-                    <a href="#"> <i class="small material-icons"> thumb_down </i> </a>
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="divider"> </div>
+        @empty
+            <h5 class="center"> Nenhuma postagem realizada </h5>
+        @endforelse
 
     </div>
 

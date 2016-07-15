@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form method="POST" action="" enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+    <form method="POST" action="{{ url('create-post') }}" enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
 
         <h5 class="center">Cadastrar Post</h5>
 

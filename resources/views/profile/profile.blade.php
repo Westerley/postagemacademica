@@ -2,11 +2,14 @@
 
 @section('content')
 
-    <form action="{{ url('/profile') }}" method="POST">
+    <form action="{{ url('/profile/edit/'.$profile->id) }}" method="POST" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+
+        {!! csrf_field() !!}
+
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">account_circle</i>
-                <input id="name" name="name" type="text" required class="validate" value="{{ old('name') }}">
+                <input id="name" name="name" type="text" required class="validate" value="{{ Auth::user()->name }}">
                 <label for="name">Nome</label>
             </div>
         </div>
@@ -28,7 +31,7 @@
             <div class="col s4">
                 <label>Sexo</label>
                 <p>
-                    <input name="genre" value="M" type="radio" id="male"/>
+                    <input name="genre" value="M" type="radio" id="male" checked/>
                     <label for="male">Masculino</label>
                 </p>
                 <p>
@@ -40,19 +43,19 @@
         <div class="row">
             <div class="input-field col s12 m4">
                 <select name="occupation">
-                    <option value="" disabled selected> Profissão </option>
-                    <option value="Estudante"> Estudante</option>
-                    <option value="Professor"> Professor</option>
+                    <option value="1" disabled selected> Profissão </option>
+                    <option value="1"> Estudante</option>
+                    <option value="2"> Professor</option>
                 </select>
             </div>
             <div class="input-field col s12 m4">
                 <i class="material-icons prefix">phone</i>
-                <input id="telephone" type="tel" required class="validate" value="{{ old('telephone') }}">
+                <input id="telephone" type="tel" name="telephone" required class="validate" value="{{ old('telephone') }}">
                 <label for="telephone">Telefone</label>
             </div>
             <div class="input-field col s12 m4">
                 <i class="material-icons prefix">stay_primary_portrait</i>
-                <input id="cellphone" type="tel" required class="validate" value="{{ old('cellphone') }}">
+                <input id="cellphone" type="tel" name="cellphone" required class="validate" value="{{ old('cellphone') }}">
                 <label for="cellphone">Celular</label>
             </div>
         </div>
@@ -61,7 +64,7 @@
             <div class="file-field input-field col s12 l6">
                 <div class="btn waves-effect waves-light #80cbc4 teal lighten-3">
                     <span>Arquivo</span>
-                    <input type="file" name="anexo" required>
+                    <input type="file" name="image" required>
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Foto Perfil">
@@ -70,7 +73,7 @@
             <div class="file-field input-field col s12 l6">
                 <div class="btn waves-effect waves-light #80cbc4 teal lighten-3">
                     <span>Arquivo</span>
-                    <input type="file" name="anexo" required>
+                    <input type="file" name="cape" required>
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Foto Capa">
@@ -80,34 +83,19 @@
 
         <div class="row">
             <div class="input-field col s12">
-                <i class="material-icons prefix">mail</i>
-                <input id="email" name="email" type="email" required class="validate" value="{{ old('email') }}">
-                <label for="email">Email</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">lock</i>
-                <input id="password" type="password" name="password" required class="validate" value="{{ old('password') }}">
-                <label for="password">Senha</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
                 <i class="material-icons prefix">mode_edit</i>
-                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                <textarea id="icon_prefix2" name="about" class="materialize-textarea"></textarea>
                 <label for="icon_prefix2">Sobre mim</label>
             </div>
         </div>
 
         <div class="center">
-            <button class="btn waves-effect waves-light" type="reset"> Cancelar </button>
-            <button class="btn waves-effect waves-light" type="submit">Alterar
+            <button class="btn waves-effect waves-light" type="reset" style="margin-bottom: 1%"> Cancelar </button>
+            <button class="btn waves-effect waves-light" type="submit" style="margin-bottom: 1%">Alterar
                 <i class="material-icons right">send</i>
             </button>
         </div>
+
     </form>
 
     <br>

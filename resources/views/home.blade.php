@@ -16,36 +16,38 @@
             <label>Filtrar Por: </label>
         </section>
 
-        <section class="section">
+        @forelse($posts as $post)
 
-            <header>
-                <div class="chip">
-                    <img src="/image/profile/user/sem_foto.png" alt="Contact Person">
-                    Bruno Marcos
-                </div>
+            <section class="section">
 
-                <h5> Hello World em PHP </h5>
-            </header>
+                <header>
+                    <div class="chip">
+                        <img src="/image/profile/user/sem_foto.png" alt="Contact Person">
+                        {{ Auth::user()->name }}
+                    </div>
 
-            <article>
-                <p> Chips can be used to represent small blocks of information. They are most commonly
-                    used either for contacts or for tags. Chips can be used to represent
-                    small blocks of information. They are most commonly used either for contacts or for tags.
-                </p>
-            </article>
+                    <h5> {{ $post->title }} </h5>
+                </header>
 
-            <footer>
-                Download: <a href="anexos/"> helloworld.rar </a>
+                <article>
+                    <p> {{ $post->content }} </p>
+                </article>
 
-                <p>
-                    <a href="#"> <i class="small material-icons"> thumb_up </i> </a>
-                    <a href="#"> <i class="small material-icons"> thumb_down </i> </a>
-                </p>
-            </footer>
+                <footer class="votacao">
+                    <p>
+                        <a href="#"> <i class="fa fa-thumbs-o-up fa-2x"> </i> </a> <span> ({{ $post->like }}) </span>
+                        <a href="#"> <i class="fa fa-thumbs-o-down fa-2x"> </i> </a> <span> ({{ $post->unlike }}) </span>
+                        <span class="download"> <a href="/download/{{ $post->arquivo }}"> <i class="fa fa-download"> Download </i> </a> </span>
+                    </p>
+                </footer>
 
-        </section>
+            </section>
 
-        <div class="divider"> </div>
+            <div class="divider"> </div>
+
+        @empty
+            <h5 class="center"> Nenhuma postagem </h5>
+        @endforelse
 
     </article>
 

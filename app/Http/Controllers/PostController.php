@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\Profile;
+use Illuminate\Support\Facades\Gate;
 
 use App\Http\Requests;
 
@@ -13,7 +16,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post, Profile $profile)
+    {
+        $posts = $post->where('id_profile', auth()->user()->id)->get();
+        //$user = $profile->where('id_user', auth()->user()->id)->get();
+        return view('profile.timeline', compact('posts'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         return view('profile.post');
     }

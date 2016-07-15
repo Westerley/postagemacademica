@@ -6,11 +6,17 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::get('/', 'HomeController@index');
 
-    Route::get('/profile', 'ProfileController@show');
+    Route::get('/timeline', 'PostController@index');
 
-    Route::get('/post', 'PostController@index');
+    Route::get('/profile/edit/{id}', 'ProfileController@edit');
 
-    Route::get('/timeline', 'ProfileController@index');
+    Route::post('/profile/edit/{id}', 'ProfileController@update');
+
+    Route::get('/profile/password/{id}', 'ProfileController@show');
+
+    Route::get('/post', 'PostController@create');
+
+    Route::post('/post', 'PostController@store');
 
     Route::get('/courses', 'CourseController@index');
 
