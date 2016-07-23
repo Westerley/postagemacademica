@@ -117,8 +117,8 @@ class ProfileController extends Controller
         $profile = Profile::find($profile_id);
 
         if(Input::file('cape')) {
-            $image = Input::file('cape');
-            $extension = $image->getClientOriginalExtension();
+            $cape = Input::file('cape');
+            $extension = $cape->getClientOriginalExtension();
             if ($extension != 'jpg' && $extension != 'png') {
                 return back()->with('erro', 'Formato de Imagem não suportado');
             }
@@ -126,8 +126,8 @@ class ProfileController extends Controller
 
         if(Input::file('cape')) {
             $destinationPath = 'image/profile/cape';
-            $profile->image = 'cape-id-' . $profile->id . '.' . $extension;
-            $upload_success = $image->move($destinationPath, $profile->image);
+            $profile->cape = 'cape-id-' . $profile->id . '.' . $extension;
+            $upload_success = $cape->move($destinationPath, $profile->cape);
 
             if ($upload_success) {
                 $profile->save();
