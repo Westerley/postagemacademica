@@ -12,6 +12,10 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::post('/profile/edit/{id}', 'ProfileController@update');
 
+    Route::post('/profile/update-image', 'ProfileController@updateImage');
+
+    Route::post('/profile/update-cape', 'ProfileController@updateCape');
+
     Route::get('/profile/password/{id}', 'ProfileController@show');
 
     Route::get('/post', 'PostController@create');

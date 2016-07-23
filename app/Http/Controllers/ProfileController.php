@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Profile;
@@ -78,41 +77,65 @@ class ProfileController extends Controller
         $profile->cellphone     = Input::get('cellphone');
         $profile->about         = Input::get('about');
         $profile->save();
-        if(Input::file('image'))
-        {
-            $image = Input::file('image');
-            $extension = $image->getClientOriginalExtension();
-            if($extension != 'jpg' && $extension != 'png')
-            {
-                return back()->with('erro', 'Formato de Imagem não suportado');
-            }
-            else
-            {
-                File::delete(public_path().$profile->image);
-                File::move($image, public_path() . '/image/profile/user/user-id-' . $profile->id . '.' . $extension);
-                $profile->image = '/image/profile/user/user-id-' . $profile->id . '.' . $extension;
-                $profile->save();
-            }
-        }
-        if(Input::file('cape'))
-        {
-            $cape = Input::file('cape');
-            $extension = $cape->getClientOriginalExtension();
-            if($extension != 'jpg' && $extension != 'png')
-            {
-                return back()->with('erro', 'Formato de Imagem não suportado');
-            }
-            else
-            {
-                File::delete(public_path().$profile->cape);
-                File::move($cape, public_path() . '/image/profile/user/user-id-' . $profile->id . '.' . $extension);
-                $profile->cape = '/image/profile/cape/cape-id-' . $profile->id . '.' . $extension;
-                $profile->save();
-            }
-        }
 
         return redirect('/timeline');
 
+    }
+
+    public function updateImage()
+    {
+
+        $profile_id = Input::get('profile_id');
+        $profile = Profile::find($profile_id);
+
+        if(Input::file('image')) {
+            $image = Input::file('image');
+            $extension = $image->getClientOriginalExtension();
+            if ($extension != 'jpg' && $extension != 'png') {
+                return back()->with('erro', 'Formato de Imagem não suportado');
+            }
+        }
+
+        if(Input::file('image')) {
+            $destinationPath = 'image/profile/user';
+            $profile->image = 'user-id-' . $profile->id . '.' . $extension;
+            $upload_success = $image->move($destinationPath, $profile->image);
+
+            if ($upload_success) {
+                $profile->save();
+                return redirect('/timeline');
+            } else {
+                return back()->with('erro', 'Erro ao realizar o upload');
+            }
+        }
+
+    }
+
+    public function updateCape()
+    {
+        $profile_id = Input::get('profile_id');
+        $profile = Profile::find($profile_id);
+
+        if(Input::file('cape')) {
+            $image = Input::file('cape');
+            $extension = $image->getClientOriginalExtension();
+            if ($extension != 'jpg' && $extension != 'png') {
+                return back()->with('erro', 'Formato de Imagem não suportado');
+            }
+        }
+
+        if(Input::file('cape')) {
+            $destinationPath = 'image/profile/cape';
+            $profile->image = 'cape-id-' . $profile->id . '.' . $extension;
+            $upload_success = $image->move($destinationPath, $profile->image);
+
+            if ($upload_success) {
+                $profile->save();
+                return redirect('/timeline');
+            } else {
+                return back()->with('erro', 'Erro ao realizar o upload');
+            }
+        }
     }
 
     /**

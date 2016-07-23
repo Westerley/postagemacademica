@@ -15,6 +15,12 @@ body {
     background-color: #e8f5e9;
 }
 
+.capa-perfil a {
+    color: #26a69a;
+    margin: 7% 2%;
+    float: right;
+}
+
 .profile-menu {
     margin-top: 90px !important;
     margin-left: -50px !important;
@@ -179,4 +185,20 @@ body {
 
 .slide-out span {
     color: black !important;
+}
+
+.upload {
+    position: relative;
+}
+
+.upload:hover i {
+    opacity: 1;
+}
+
+.upload i {
+    transition: opacity 1s;
+    color: #26a69a;
+    position: absolute;
+    margin: 55px -95px;
+    opacity: 0;
 }

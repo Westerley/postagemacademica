@@ -2,14 +2,16 @@
 
 @section('content')
 
-    <form action="{{ url('/profile/edit/'.$profile->id) }}" method="POST" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+    <form action="{{ url('/profile/edit/'.$profile->id) }}"  method="POST"  enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
 
         {!! csrf_field() !!}
+
+        <h5 class="center"> Alterar Perfil </h5>
 
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">account_circle</i>
-                <input id="name" name="name" type="text" required class="validate" value="{{ Auth::user()->name }}">
+                <input id="name" name="name" type="text" disabled required class="validate" value="{{ Auth::user()->name }}">
                 <label for="name">Nome</label>
             </div>
         </div>
@@ -17,12 +19,12 @@
         <div class="row">
             <div class="input-field col s12 m8 l8">
                 <i class="material-icons prefix">location_on</i>
-                <input id="street" name="street" type="text" required class="validate" value="{{ old('street') }}">
+                <input id="street" name="street" type="text" required class="validate" value="{{ $profile->street }}">
                 <label for="street">Rua</label>
             </div>
             <div class="input-field col s12 m4 l4">
                 <i class="material-icons prefix">my_location</i>
-                <input id="number" name="number" type="text" required class="validate" value="{{ old('number') }}">
+                <input id="number" name="number" type="text" required class="validate" value="{{ $profile->number }}">
                 <label for="number">Número</label>
             </div>
         </div>
@@ -31,60 +33,40 @@
             <div class="col s4">
                 <label>Sexo</label>
                 <p>
-                    <input name="genre" value="M" type="radio" id="male" checked/>
+                    <input name="genre" value="M" type="radio" id="male" @if($profile->genre == 'M') checked @endif/>
                     <label for="male">Masculino</label>
                 </p>
                 <p>
-                    <input name="genre" value="F" type="radio" id="female"/>
+                    <input name="genre" value="F" type="radio" id="female" @if($profile->genre == 'F') checked @endif/>
                     <label for="female">Feminino</label>
                 </p>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s12 m4">
                 <select name="occupation">
                     <option value="1" disabled selected> Profissão </option>
-                    <option value="1"> Estudante</option>
-                    <option value="2"> Professor</option>
+                    <option value="1" @if($profile->id_occupation == 1) selected @endif> Estudante </option>
+                    <option value="2"  @if($profile->id_occupation == 2) selected @endif> Professor</option>
                 </select>
             </div>
             <div class="input-field col s12 m4">
                 <i class="material-icons prefix">phone</i>
-                <input id="telephone" type="tel" name="telephone" required class="validate" value="{{ old('telephone') }}">
+                <input id="telephone" type="tel" name="telephone" required class="validate" value="{{ $profile->telephone }}">
                 <label for="telephone">Telefone</label>
             </div>
             <div class="input-field col s12 m4">
                 <i class="material-icons prefix">stay_primary_portrait</i>
-                <input id="cellphone" type="tel" name="cellphone" required class="validate" value="{{ old('cellphone') }}">
+                <input id="cellphone" type="tel" name="cellphone" required class="validate" value="{{ $profile->cellphone }}">
                 <label for="cellphone">Celular</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="file-field input-field col s12 l6">
-                <div class="btn waves-effect waves-light #80cbc4 teal lighten-3">
-                    <span>Arquivo</span>
-                    <input type="file" name="image" required>
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Foto Perfil">
-                </div>
-            </div>
-            <div class="file-field input-field col s12 l6">
-                <div class="btn waves-effect waves-light #80cbc4 teal lighten-3">
-                    <span>Arquivo</span>
-                    <input type="file" name="cape" required>
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Foto Capa">
-                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">mode_edit</i>
-                <textarea id="icon_prefix2" name="about" class="materialize-textarea"></textarea>
+                <textarea id="icon_prefix2" name="about" class="materialize-textarea">{{ $profile->about }}</textarea>
                 <label for="icon_prefix2">Sobre mim</label>
             </div>
         </div>
