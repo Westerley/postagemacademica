@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('id_course')->unsigned();
             $table->string('title', 100);
             $table->text('content');
-            $table->string('arquivo', 255);
+            $table->string('file', 255);
             $table->integer('like')->default(0);
             $table->integer('unlike')->default(0);
             $table->timestamps();

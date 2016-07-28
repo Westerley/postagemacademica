@@ -8,6 +8,7 @@ use App\Profile;
 use Illuminate\Support\Facades\Gate;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
 class PostController extends Controller
 {
@@ -41,7 +42,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Input::file('file')) {
+            $file = Input::file('file');
+            $extension = $file->getClientOriginalExtension();
+            if ($extension != 'rar' && $extension != 'zip') {
+                return back()->with('erro', 'Formato de arquivo não suportado, apenas arquivo no formato .rar ou .zip');
+            }
+        }
+        
+        $post = new Post;
+        $post->title = Input::get('title');
+        $post->content = Input::get('content');
+        $post->id_profile = Input::get('id_profile');
+        $post->id_course = Input::get('course');
+
+        if(Input::file('file')) {
+            $post->file = rand(11111, 99999) . '.' . $extension;
+            $upload_success = $file->move(public_path() . '/download', $post->file);
+
+            if ($upload_success) {
+                $post->save();
+                return redirect('/timeline');
+            } else {
+                return back()->with('erro', 'Erro ao realizar o upload');
+            }
+        }
     }
 
     /**

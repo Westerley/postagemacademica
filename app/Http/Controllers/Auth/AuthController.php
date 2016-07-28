@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Profile;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -63,10 +65,31 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $profile = DB::table('users')->orderBy('id', 'desc')->skip(0)->take(1)->get();
+
+        foreach ($profile as $userProfile) {
+            $idProfile = $userProfile->id;
+        }
+        
+        Profile::create([
+            'id_user' => $idProfile,
+            'id_occupation' => 1,
+            'street' => '',
+            'number' => '',
+            'genre' => '',
+            'telephone' => '',
+            'cellphone' => '',
+            'cape' => '',
+            'image' => '',
+            'about' => ''
+        ]);
+
+        return $user;
     }
 }
