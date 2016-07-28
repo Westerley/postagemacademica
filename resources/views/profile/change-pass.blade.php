@@ -7,10 +7,27 @@
         <h5 class="center"> Alterar Senha </h5>
 
         <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">spellcheck</i>
-                <input id="titulo" name="titulo" type="text" class="validate" required>
-                <label for="titulo">Título</label>
+            <div class="input-field col s10">
+                <i class="material-icons prefix">lock</i>
+                <input id="old-password" type="password" name="old-password" required class="validate">
+                <label for="old-password">Senha Antiga</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s10">
+                <i class="material-icons prefix">lock</i>
+                <input id="password" type="password" name="password" required class="validate">
+                <label for="password">Nova Senha</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s10">
+                <i class="material-icons prefix">lock</i>
+                <input id="password-confirm" name="password_confirmation" type="password" required
+                       class="validate">
+                <label for="password-confirm">Confirmar Nova Senha</label>
             </div>
         </div>
 

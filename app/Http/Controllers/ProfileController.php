@@ -44,6 +44,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
+
         return view('layouts.profile');
     }
 
@@ -138,14 +139,10 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function updatePassword($id)
     {
-        //
+        $profile = Profile::find($id);
+        return view('profile.change-pass', compact('profile'));
     }
+    
 }

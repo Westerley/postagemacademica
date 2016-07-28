@@ -10,7 +10,7 @@
 
         <ul id="configuracoes" class="dropdown-content">
             <li><a href="{{ url('/profile/edit/'.Auth::user()->id) }}"> Alterar Dados </a> </li>
-            <li><a href="{{ url('/password') }}"> Alterar Senha </a> </li>
+            <li><a href="{{ url('/profile/password/'.Auth::user()->id) }}"> Alterar Senha </a> </li>
             <li><a href="{{ url('/logout') }}"> Sair </a> </li>
         </ul>
 
