@@ -168,6 +168,7 @@ class ProfileController extends Controller
             if (Hash::check($oldPassword, $user->password)) {
                 $user->password = bcrypt($newPassword);
                 $user->save();
+                return back()->with('erro', 'Senha alterada');
             } else {
                 return back()->with('erro', 'Senha antiga incorreta');
             }

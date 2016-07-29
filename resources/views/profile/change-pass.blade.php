@@ -4,6 +4,10 @@
 
     <form method="POST" action="{{ url('/profile/password/'.$user->id) }}" enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
 
+        @if (session('erro'))
+            <h2> Erro Teste </h2>
+        @endif
+
         <h5 class="center"> Alterar Senha </h5>
 
         {!! csrf_field() !!}

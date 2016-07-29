@@ -83,4 +83,9 @@ class CourseController extends Controller
     {
         //
     }
+
+    public function tester(){
+        $courses = Course::all();
+        return view('profile.courses', compact('courses'));
+    }
 }

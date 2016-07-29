@@ -4,7 +4,13 @@
 
     <form action="#" class="col s12 m12 l12">
 
+        @forelse($courses as $course)
+            <h2> Teste </h2>
+        @endforelse
+
         <h5 class="center">Disciplinas do Curso</h5>
+
+        {!! csrf_field() !!}
 
         <div class="row" style="margin-left: 8%">
             <div class="col s12 m6 l4">
