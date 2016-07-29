@@ -139,8 +139,8 @@
                     $("<img />", {
                         "src": e.target.result,
                         "class": "responsive-img",
-                        "height": "20em",
-                        "width": "30em"
+                        "height": "15em",
+                        "width": "17em"
                     }).appendTo(previewCape);
                 }
                 previewCape.show();
@@ -162,8 +162,8 @@
                     $("<img />", {
                         "src": e.target.result,
                         "class": "responsive-img",
-                        "height": "20em",
-                        "width": "30em"
+                        "height": "15em",
+                        "width": "17em"
                     }).appendTo(previewImage);
                 }
                 previewImage.show();

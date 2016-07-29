@@ -2,9 +2,11 @@
 
 @section('content')
 
-    <form method="POST" action="" enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+    <form method="POST" action="{{ url('/profile/password/'.$user->id) }}" enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
 
         <h5 class="center"> Alterar Senha </h5>
+
+        {!! csrf_field() !!}
 
         <div class="row">
             <div class="input-field col s10">
@@ -25,7 +27,7 @@
         <div class="row">
             <div class="input-field col s10">
                 <i class="material-icons prefix">lock</i>
-                <input id="password-confirm" name="password_confirmation" type="password" required
+                <input id="password-confirm" name="password-confirm" type="password" required
                        class="validate">
                 <label for="password-confirm">Confirmar Nova Senha</label>
             </div>
