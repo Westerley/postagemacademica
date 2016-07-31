@@ -16,12 +16,16 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::post('/profile/update-cape', 'ProfileController@updateCape');
 
-    Route::get('/profile/password/{id}', 'ProfileController@updatePassword');
+    Route::get('/profile/password/{id}', 'ProfileController@newPassword');
+
+    Route::post('/profile/password/{id}', 'ProfileController@updatePassword');
 
     Route::get('/post', 'PostController@create');
 
     Route::post('/post', 'PostController@store');
 
-    Route::get('/courses', 'CourseController@index');
+    Route::get('/courses/{id}', 'CourseController@index');
+
+    Route::post('/courses/save/{id}', 'CourseController@save');
 
 });
