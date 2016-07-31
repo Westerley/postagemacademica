@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Course;
+use App\Registration;
 
 class CourseController extends Controller
 {
@@ -13,9 +15,12 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('profile.courses');
+        $registrations = Registration::where('id_profile', '=', $id)->get();
+        //$registrations = Registration::get();
+        $courses = Course::get();
+        return view('profile.courses')->with('courses', $courses)->with('registrations', $registrations);
     }
 
     /**
@@ -23,6 +28,30 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function save(Request $request, $id)
+    {
+        $registration = Registration::where('id_profile', '=', $id)->count();
+
+        if (!$registration) {
+            foreach ($request->courses as $course) {
+                $registrationQuery = new Registration();
+                $registrationQuery->insert(['id_profile' => $id, 'id_courses' => $course]);
+            }
+        } else {
+            if ($request->courses) {
+                Registration::where('id_profile', '=', $id)->delete();
+                foreach ($request->courses as $course) {
+                    $registrationQuery = new Registration();
+                    $registrationQuery->insert(['id_profile' => $id, 'id_courses' => $course]);
+                }
+            } else {
+                Registration::where('id_profile', '=', $id)->delete();
+            }
+        }
+        return $this->index($id);
+    }
+
     public function create()
     {
         //
@@ -31,7 +60,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +71,7 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -53,7 +82,7 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,8 +93,8 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -76,16 +105,11 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-    }
-
-    public function tester(){
-        $courses = Course::all();
-        return view('profile.courses', compact('courses'));
     }
 }
