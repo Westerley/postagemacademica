@@ -6,10 +6,15 @@
 
         <h5 class="center">Disciplinas do Curso</h5>
 
+        @if(Session::has('message'))
+            <script type="text/javascript">
+                Materialize.toast('{{ Session::get('message') }}', 3000, 'rounded')
+            </script>
+        @endif
+
         <input type="text" id="id" name="id" value="{{ Auth::user()->id }}" hidden>
 
         {!! csrf_field() !!}
-
         <div class="row" style="margin-left: 8%">
             <div class="col s12 m6 l4">
                 @foreach($courses as $course)

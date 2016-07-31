@@ -2,14 +2,16 @@
 
 @section('content')
 
-    <form method="POST" action="{{ url('/profile/password/'.$user->id) }}" enctype="multipart/form-data" class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+    <h5 class="center"> Alterar Senha </h5>
 
-        @if (session('erro'))
-            <h2> Erro Teste </h2>
-        @endif
+    @if(Session::has('message'))
+        <script type="text/javascript">
+            Materialize.toast('{{ Session::get('message') }}', 3000, 'rounded')
+        </script>
+    @endif
 
-        <h5 class="center"> Alterar Senha </h5>
-
+    <form method="POST" action="{{ url('/profile/password/'.$user->id) }}" enctype="multipart/form-data"
+          class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
         {!! csrf_field() !!}
 
         <div class="row">
@@ -38,8 +40,8 @@
         </div>
 
         <div class="center">
-            <button class="btn waves-effect waves-light" type="reset" style="margin-bottom: 1%"> Cancelar </button>
-            <button class="btn waves-effect waves-light" type="submit" style="margin-bottom: 1%"> Alterar </button>
+            <button class="btn waves-effect waves-light" type="reset" style="margin-bottom: 1%"> Cancelar</button>
+            <button class="btn waves-effect waves-light" type="submit" style="margin-bottom: 1%"> Alterar</button>
         </div>
 
     </form>

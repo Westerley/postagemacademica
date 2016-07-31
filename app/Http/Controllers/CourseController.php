@@ -49,6 +49,8 @@ class CourseController extends Controller
                 Registration::where('id_profile', '=', $id)->delete();
             }
         }
+        \Session::flash('message', 'Alteração Realizada com sucesso');
+
         return $this->index($id);
     }
 

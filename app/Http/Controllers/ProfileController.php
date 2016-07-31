@@ -162,18 +162,21 @@ class ProfileController extends Controller
 
         if ($validation->passes()) {
             if (Input::get('password') != Input::get('password-confirm')) {
-                return back()->with('erro', 'Senha Incorreta');
+                \Session::flash('message', 'Senha Incorreta');
+                return $this->newPassword($id);
             }
-
             if (Hash::check($oldPassword, $user->password)) {
                 $user->password = bcrypt($newPassword);
                 $user->save();
-                return back()->with('erro', 'Senha alterada');
+                \Session::flash('message', 'Senha alterada');
+                return $this->newPassword($id);
             } else {
-                return back()->with('erro', 'Senha antiga incorreta');
+                \Session::flash('message', 'Senha antiga incorreta');
+                return $this->newPassword($id);
             }
         }
-        return redirect('/timeline');
+        \Session::flash('message', 'Senha necessita de no mínimo 6 caracteres');
+        return $this->newPassword($id);
     }
 
 }
