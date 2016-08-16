@@ -84,7 +84,7 @@
                         <div class="col s12 m12 l9 profile-menu hide-on-med-and-down">
                             <ul class="N/A transparent">
                                 <li> <a class="menu" href="{{ url('/timeline') }}"> POSTS </a> </li>
-                                <li> <a class="menu" href="{{ url('/courses') }}"> DISCIPLINAS </a> </li>
+                                <li> <a class="menu" href="{{ url('/courses/'. Auth::user()->id ) }}"> DISCIPLINAS </a> </li>
                                 <li> <a class="menu" href="{{ url('/post') }}"> POSTAR </a> </li>
                             </ul>
                         </div>
@@ -139,8 +139,8 @@
                     $("<img />", {
                         "src": e.target.result,
                         "class": "responsive-img",
-                        "height": "20em",
-                        "width": "30em"
+                        "height": "15em",
+                        "width": "17em"
                     }).appendTo(previewCape);
                 }
                 previewCape.show();
@@ -162,8 +162,8 @@
                     $("<img />", {
                         "src": e.target.result,
                         "class": "responsive-img",
-                        "height": "20em",
-                        "width": "30em"
+                        "height": "15em",
+                        "width": "17em"
                     }).appendTo(previewImage);
                 }
                 previewImage.show();
@@ -172,5 +172,8 @@
                 alert("Este navegador nao suporta FileReader.");
             }
         });
+    });
+    $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
     });
 </script>

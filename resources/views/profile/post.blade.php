@@ -39,10 +39,13 @@
             <div class="input-field col s12 l6 ">
                 <select name="course">
                     <option value="1" disabled selected> Disciplina </option>
-                    <option value="1"> Programação II </option>
-                    <option value="2"> Programação OO </option>
-                    <option value="3"> Programação Comercial </option>
-                    <option value="4"> Comércio Eletrônico </option>
+                    @foreach($registrations as $registration)
+                        @foreach($courses as $course)
+                            @if($registration->id_courses == $course->id)
+                                <option value="{{ $registration->id_courses }}"> {{ $course->name }} </option>
+                            @endif
+                        @endforeach
+                    @endforeach
                 </select>
             </div>
         </div>

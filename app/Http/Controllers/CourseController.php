@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Course;
+use App\Registration;
 
 class CourseController extends Controller
 {
@@ -13,9 +15,11 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('profile.courses');
+        $registrations = Registration::where('id_profile', '=', $id)->get();
+        $courses = Course::get();
+        return view('profile.courses')->with('courses', $courses)->with('registrations', $registrations);
     }
 
     /**
@@ -23,64 +27,29 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function save(Request $request, $id)
     {
-        //
-    }
+        $registration = Registration::where('id_profile', '=', $id)->count();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        if (!$registration) {
+            foreach ($request->courses as $course) {
+                $registrationQuery = new Registration();
+                $registrationQuery->insert(['id_profile' => $id, 'id_courses' => $course]);
+            }
+        } else {
+            if ($request->courses) {
+                Registration::where('id_profile', '=', $id)->delete();
+                foreach ($request->courses as $course) {
+                    $registrationQuery = new Registration();
+                    $registrationQuery->insert(['id_profile' => $id, 'id_courses' => $course]);
+                }
+            } else {
+                Registration::where('id_profile', '=', $id)->delete();
+            }
+        }
+        \Session::flash('message', 'Alteração Realizada com sucesso');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $this->index($id);
     }
 }

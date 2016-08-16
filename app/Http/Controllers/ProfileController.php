@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Profile;
+use App\User;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 class ProfileController extends Controller
@@ -27,32 +29,20 @@ class ProfileController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
-    }
-
-    /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-
         return view('layouts.profile');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,8 +54,8 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -81,13 +71,13 @@ class ProfileController extends Controller
         }
 
         $profile = Profile::find($id);
-        $profile->street        = Input::get('street');
-        $profile->number        = Input::get('number');
-        $profile->genre         = Input::get('genre');
+        $profile->street = Input::get('street');
+        $profile->number = Input::get('number');
+        $profile->genre = Input::get('genre');
         $profile->id_occupation = Input::get('occupation');
-        $profile->telephone     = Input::get('telephone');
-        $profile->cellphone     = Input::get('cellphone');
-        $profile->about         = Input::get('about');
+        $profile->telephone = Input::get('telephone');
+        $profile->cellphone = Input::get('cellphone');
+        $profile->about = Input::get('about');
         $profile->save();
 
         return redirect('/profile/edit/'.$id);
@@ -100,7 +90,7 @@ class ProfileController extends Controller
         $profile_id = Input::get('profile_id');
         $profile = Profile::find($profile_id);
 
-        if(Input::file('image')) {
+        if (Input::file('image')) {
             $image = Input::file('image');
             $extension = $image->getClientOriginalExtension();
             if ($extension != 'jpg' && $extension != 'png') {
@@ -108,7 +98,7 @@ class ProfileController extends Controller
             }
         }
 
-        if(Input::file('image')) {
+        if (Input::file('image')) {
             $destinationPath = 'image/profile/user';
             $profile->image = 'user-id-' . $profile->id . '.' . $extension;
             $upload_success = $image->move($destinationPath, $profile->image);
@@ -128,7 +118,7 @@ class ProfileController extends Controller
         $profile_id = Input::get('profile_id');
         $profile = Profile::find($profile_id);
 
-        if(Input::file('cape')) {
+        if (Input::file('cape')) {
             $cape = Input::file('cape');
             $extension = $cape->getClientOriginalExtension();
             if ($extension != 'jpg' && $extension != 'png') {
@@ -136,7 +126,7 @@ class ProfileController extends Controller
             }
         }
 
-        if(Input::file('cape')) {
+        if (Input::file('cape')) {
             $destinationPath = 'image/profile/cape';
             $profile->cape = 'cape-id-' . $profile->id . '.' . $extension;
             $upload_success = $cape->move($destinationPath, $profile->cape);
@@ -150,10 +140,40 @@ class ProfileController extends Controller
         }
     }
 
+    public function newPassword($id)
+    {
+        $user = User::find($id);
+        return view('profile.change-pass', compact('user'));
+    }
+
     public function updatePassword($id)
     {
-        $profile = Profile::find($id);
-        return view('profile.change-pass', compact('profile'));
+        $user = User::find($id);
+        $oldPassword = Input::get('old-password');
+        $newPassword = Input::get('password');
+        $rules = array('old-password' => 'required|min:6',
+            'password' => 'required|min:6',
+            'password-confirm' => 'required|min:6');
+
+        $validation = Validator::make(Input::all(), $rules);
+
+        if ($validation->passes()) {
+            if (Input::get('password') != Input::get('password-confirm')) {
+                \Session::flash('message', 'Senha Incorreta');
+                return $this->newPassword($id);
+            }
+            if (Hash::check($oldPassword, $user->password)) {
+                $user->password = bcrypt($newPassword);
+                $user->save();
+                \Session::flash('message', 'Senha alterada');
+                return $this->newPassword($id);
+            } else {
+                \Session::flash('message', 'Senha antiga incorreta');
+                return $this->newPassword($id);
+            }
+        }
+        \Session::flash('message', 'Senha necessita de no mínimo 6 caracteres');
+        return $this->newPassword($id);
     }
-    
+
 }

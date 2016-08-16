@@ -7,6 +7,8 @@ use App\Post;
 use App\Profile;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
+use App\Registration;
+use App\Course;
 
 class PostController extends Controller
 {
@@ -17,9 +19,14 @@ class PostController extends Controller
      */
     public function index(Post $post, Profile $profile)
     {
-        $posts = $post->where('id_profile', auth()->user()->id)->get();
+        $posts = $post->where('id_profile', auth()->user()->id)->orderBy('id', 'desc')->get();
         $profile = $profile->where('id_user', auth()->user()->id)->get();
-        return view('profile.timeline')->with('posts', $posts)->with('profiles', $profile);
+        $registrations = Registration::where('id_profile', '=', auth()->user()->id)->get();
+        $courses = Course::all();
+        return view('profile.timeline')->with('posts', $posts)
+                                       ->with('profiles', $profile)
+                                       ->with('registrations', $registrations)
+                                       ->with('courses', $courses);
     }
 
     /**
@@ -29,7 +36,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('profile.post');
+        $registrations = Registration::where('id_profile', '=', auth()->user()->id)->get();
+        $courses = Course::all();
+        return view('profile.post')->with('registrations', $registrations)->with('courses', $courses);
     }
 
     /**
@@ -65,50 +74,5 @@ class PostController extends Controller
                 return back()->with('erro', 'Erro ao realizar o upload');
             }
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
