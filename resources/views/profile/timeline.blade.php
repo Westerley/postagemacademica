@@ -4,12 +4,43 @@
 
     <div class="col s12 m12 l4 descricao-perfil">
         <div class="card-panel white">
-            <p> Vinculo:           <span>  </span> </p>
+            <p> Vinculo:
+                <span>
+                    @forelse($profiles as $profile)
+                        @if($profile->id_occupation == 1)
+                            Estudante
+                        @else
+                            Professor
+                        @endif
+                    @empty
+                        Não Disponível
+                    @endforelse
+                </span>
+            </p>
             <p> Nome:              <span> {{ Auth::user()->name }} </span> </p>
-            <p> Email:  <span> {{ Auth::user()->email }} </span> </p>
-            <p> Celular:  <span>  </span> </p>
-            <p> Semestre:          <span>  </span> </p>
-            <p> Posts Realizados:  <span>  </span> </p>
+            <p> Email:             <span> {{ Auth::user()->email }} </span> </p>
+            <p> Celular:
+                <span>
+                    @forelse($profiles as $profile)
+                        @if( !empty($profile->cellphone) )
+                            {{ $profile->cellphone }}
+                        @else
+                            Não Disponível
+                        @endif
+                    @empty
+                        Não Disponível
+                    @endforelse
+                </span>
+            </p>
+            <p> Posts Realizados:
+                <span>
+                    @if(count($posts) > 0)
+                        {{ count($posts) }}
+                    @else
+                        Nenhuma Postagem
+                    @endif
+                </span>
+            </p>
         </div>
     </div>
 

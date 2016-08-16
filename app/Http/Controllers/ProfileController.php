@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Profile;
 use Illuminate\Support\Facades\Input;
+use Validator;
 
 class ProfileController extends Controller
 {
@@ -69,6 +70,16 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $validator = validator::make($request->all(), [
+            'genre' => 'required',
+            'occupation' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/profile/edit/'.$id)->withErrors($validator);
+        }
+
         $profile = Profile::find($id);
         $profile->street        = Input::get('street');
         $profile->number        = Input::get('number');
@@ -79,7 +90,7 @@ class ProfileController extends Controller
         $profile->about         = Input::get('about');
         $profile->save();
 
-        return redirect('/timeline');
+        return redirect('/profile/edit/'.$id);
 
     }
 
@@ -93,7 +104,7 @@ class ProfileController extends Controller
             $image = Input::file('image');
             $extension = $image->getClientOriginalExtension();
             if ($extension != 'jpg' && $extension != 'png') {
-                return back()->with('erro', 'Formato de Imagem não suportado');
+                return redirect('/timeline')->withErrors('erro', 'Formato de Imagem não suportado');
             }
         }
 

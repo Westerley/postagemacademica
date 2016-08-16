@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Profile;
-use Illuminate\Support\Facades\Gate;
-
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 
@@ -20,8 +18,8 @@ class PostController extends Controller
     public function index(Post $post, Profile $profile)
     {
         $posts = $post->where('id_profile', auth()->user()->id)->get();
-        //$user = $profile->where('id_user', auth()->user()->id)->get();
-        return view('profile.timeline', compact('posts'));
+        $profile = $profile->where('id_user', auth()->user()->id)->get();
+        return view('profile.timeline')->with('posts', $posts)->with('profiles', $profile);
     }
 
     /**
