@@ -28,4 +28,6 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::post('/courses/save/{id}', 'CourseController@save');
 
+    Route::post('/like-post', 'PostController@like');
+
 });

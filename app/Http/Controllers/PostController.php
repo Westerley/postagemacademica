@@ -75,4 +75,13 @@ class PostController extends Controller
             }
         }
     }
+
+    public function like()
+    {
+        $post_id = Input::get('post_id');
+        $post = Post::find($post_id);
+        $post->like += 1;
+        $post->save();
+        return response::json(array('status' => 'sim', 'qtde' => $post->like));
+    }
 }

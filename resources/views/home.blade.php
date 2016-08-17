@@ -26,8 +26,12 @@
 
                 <header>
                     <div class="chip">
-                        <img src="/image/profile/user/" alt="Contact Person">
-                        {{ Auth::user()->name }}
+                        @foreach($users as $user)
+                            @if($post->id_profile == $user->id)
+                                <img src="/image/profile/user/user-id-{{ $user->id }}.jpg" alt="Contact Person">
+                                {{ $user->name }}
+                            @endif
+                        @endforeach
                     </div>
 
                     <h5> {{ $post->title }} </h5>
@@ -37,12 +41,13 @@
                     <p> {{ $post->content }} </p>
                 </article>
 
-                <footer class="votacao">
+                <footer class="votacao" data-postid="{{ $post->id }}">
                     <p>
-                        <a href="#"> <i class="fa fa-thumbs-o-up fa-2x"> </i> </a> <span> ({{ $post->like }}) </span>
-                        <a href="#"> <i class="fa fa-thumbs-o-down fa-2x"> </i> </a> <span> ({{ $post->unlike }}) </span>
+                        <a class="btnlike"> <i class="fa fa-thumbs-o-up fa-2x"> </i> </a> <span class="statusLike"> ({{ $post->like }}) </span>
+                        <a> <i class="fa fa-thumbs-o-down fa-2x btnunlike"> </i> </a> <span class="statusUnlike"> ({{ $post->unlike }}) </span>
                         <span class="download"> <a href="/download/{{ $post->file }}"> <i class="fa fa-download"> Download </i> </a> </span>
                     </p>
+                    {!! csrf_field() !!}
                 </footer>
 
             </section>
@@ -56,5 +61,34 @@
     </article>
 
     @include('include.top-five')
+
+    <script>
+        $(document).ready(function() {
+            $(".btnlike").click(function (event) {
+                event.preventDefault();
+                event.
+                alert(event.target.parentNode.dataset['postid']);
+                $.post("/like-post", {
+                    post_id: $('.btnlike').attr("id"),
+                    _token: $('input[name="_token"]').attr("value")}, function (response) {
+                    if(response.status == "sim")
+                    {
+                        alert('sim');
+                    }
+                });
+            });
+
+            $(".btnunlike").click(function () {
+                $.post("/unlike-post", {
+                    post_id: $('input[name="post_id"]').attr("value"),
+                    _token:$('input[name="_token"]').attr("value")}, function (response) {
+                    if(response.status == "sim")
+                    {
+                        $(".statusUnlike").html(response.qtde);
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection

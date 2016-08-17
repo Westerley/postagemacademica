@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
-use App\Post;
 use App\Registration;
 use App\Course;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -28,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = User::all();
         $registrations = Registration::where('id_profile', '=', auth()->user()->id)->get();
         $courses = Course::all();
         $posts = DB::table('registrations')
@@ -36,6 +36,9 @@ class HomeController extends Controller
                     ->where('registrations.id_profile', '=', auth()->user()->id);
             })
             ->orderBy('posts.id', 'desc')->get();
-        return view('/home', compact('posts'))->with('registrations', $registrations)->with('courses', $courses);
+        return view('/home', compact('posts'))
+                        ->with('registrations', $registrations)
+                        ->with('courses', $courses)
+                        ->with('users', $user);
     }
 }
