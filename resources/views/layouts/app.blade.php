@@ -12,6 +12,7 @@
     <body>
 
         {!! MaterializeCSS::include_full() !!}
+        <script src="js/script.js"></script>
 
         @include('include.menu')
 
@@ -34,9 +35,3 @@
     </body>
 
 </html>
-
-<script>
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-</script>

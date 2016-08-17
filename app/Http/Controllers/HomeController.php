@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Rate;
 use App\Registration;
 use App\Course;
 use App\User;

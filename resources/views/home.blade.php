@@ -23,7 +23,7 @@
         @forelse($posts as $post)
 
             <section class="section">
-
+                {!! csrf_field() !!}
                 <header>
                     <div class="chip">
                         @foreach($users as $user)
@@ -41,13 +41,16 @@
                     <p> {{ $post->content }} </p>
                 </article>
 
-                <footer class="votacao" data-postid="{{ $post->id }}">
-                    <p>
-                        <a class="btnlike"> <i class="fa fa-thumbs-o-up fa-2x"> </i> </a> <span class="statusLike"> ({{ $post->like }}) </span>
-                        <a> <i class="fa fa-thumbs-o-down fa-2x btnunlike"> </i> </a> <span class="statusUnlike"> ({{ $post->unlike }}) </span>
-                        <span class="download"> <a href="/download/{{ $post->file }}"> <i class="fa fa-download"> Download </i> </a> </span>
-                    </p>
-                    {!! csrf_field() !!}
+                <footer class="votacao" lang="{{ $post->id }}">
+                    <i class="fa fa-thumbs-o-up fa-2x rating" alt="like"> </i>
+                    <span class="like">
+                        ({{ \Illuminate\Support\Facades\DB::table('rates')->where('id_post', '=', $post->id)->where('like', '=' , 1)->count() }})
+                    </span>
+                    <i class="fa fa-thumbs-o-down fa-2x rating" alt="unlike"> </i>
+                    <span class="unlike">
+                        ({{ \Illuminate\Support\Facades\DB::table('rates')->where('id_post', '=', $post->id)->where('unlike', '=' , 1)->count() }})
+                    </span>
+                    <span class="download"> <a href="/download/{{ $post->file }}"> <i class="fa fa-download"> Download </i> </a> </span>
                 </footer>
 
             </section>
@@ -61,34 +64,5 @@
     </article>
 
     @include('include.top-five')
-
-    <script>
-        $(document).ready(function() {
-            $(".btnlike").click(function (event) {
-                event.preventDefault();
-                event.
-                alert(event.target.parentNode.dataset['postid']);
-                $.post("/like-post", {
-                    post_id: $('.btnlike').attr("id"),
-                    _token: $('input[name="_token"]').attr("value")}, function (response) {
-                    if(response.status == "sim")
-                    {
-                        alert('sim');
-                    }
-                });
-            });
-
-            $(".btnunlike").click(function () {
-                $.post("/unlike-post", {
-                    post_id: $('input[name="post_id"]').attr("value"),
-                    _token:$('input[name="_token"]').attr("value")}, function (response) {
-                    if(response.status == "sim")
-                    {
-                        $(".statusUnlike").html(response.qtde);
-                    }
-                });
-            });
-        });
-    </script>
 
 @endsection

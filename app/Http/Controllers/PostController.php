@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Profile;
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use App\Registration;
 use App\Course;
+use App\Rate;
 
 class PostController extends Controller
 {
@@ -76,12 +78,35 @@ class PostController extends Controller
         }
     }
 
-    public function like()
+    public function rating()
     {
         $post_id = Input::get('post_id');
-        $post = Post::find($post_id);
-        $post->like += 1;
-        $post->save();
-        return response::json(array('status' => 'sim', 'qtde' => $post->like));
+        $profile_id = auth()->user()->id;
+        $type = Input::get('type');
+
+        $rate = Rate::where('id_profile', '=', $profile_id)->where('id_post', '=', $post_id)->count();
+
+        if (!$rate) {
+            Rate::create([
+                'id_profile' => $profile_id, 
+                'id_post' => $post_id,
+                $type => 1
+            ]);
+        } else {
+            $rate = Rate::where('id_profile', '=', $profile_id)->where('id_post', '=', $post_id)->first();
+            $row = Rate::find($rate->id);
+            if ($row->$type == 0) {
+                $row->$type += 1;
+                $row->save();
+                $count = Rate::where('id_post', '=', $post_id)->where($type, '=', 1)->count();
+                return response()->json(array('status' => 'sim', 'qtde' => $count));
+            } else {
+                $row->$type -= 1;
+                $row->save();
+                $count = Rate::where('id_post', '=', $post_id)->where($type, '=', 1)->count();
+                return response()->json(array('status' => 'sim', 'qtde' => $count));
+            }
+
+        }
     }
 }

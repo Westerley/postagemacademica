@@ -16,6 +16,8 @@ class CreateRatesTable extends Migration
             $table->increments('id');
             $table->integer('id_profile')->unsigned();
             $table->integer('id_post')->unsigned();
+            $table->integer('like')->default(0);
+            $table->integer('unlike')->default(0);
             $table->timestamps();
         });
 

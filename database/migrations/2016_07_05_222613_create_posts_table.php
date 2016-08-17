@@ -19,8 +19,6 @@ class CreatePostsTable extends Migration
             $table->string('title', 100);
             $table->text('content');
             $table->string('file', 255);
-            $table->integer('like')->default(0);
-            $table->integer('unlike')->default(0);
             $table->timestamps();
         });
     }

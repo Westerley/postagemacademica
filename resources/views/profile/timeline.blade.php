@@ -81,12 +81,16 @@
                     <p> {{ $post->content }} </p>
                 </article>
 
-                <footer class="votacao">
-                    <p>
-                        <a href="#"> <i class="fa fa-thumbs-o-up fa-2x"> </i> </a> <span> ({{ $post->like }}) </span>
-                        <a href="#"> <i class="fa fa-thumbs-o-down fa-2x"> </i> </a> <span> ({{ $post->unlike }}) </span>
-                        <span class="download"> <a href="/download/{{ $post->file }}"> <i class="fa fa-download"> Download </i> </a> </span>
-                    </p>
+                <footer class="votacao" lang="{{ $post->id }}">
+                    <i class="fa fa-thumbs-o-up fa-2x rating" alt="like"> </i>
+                    <span class="like">
+                        ({{ \Illuminate\Support\Facades\DB::table('rates')->where('id_post', '=', $post->id)->where('like', '=' , 1)->count() }})
+                    </span>
+                    <i class="fa fa-thumbs-o-down fa-2x rating" alt="unlike"> </i>
+                    <span class="unlike">
+                        ({{ \Illuminate\Support\Facades\DB::table('rates')->where('id_post', '=', $post->id)->where('unlike', '=' , 1)->count() }})
+                    </span>
+                    <span class="download"> <a href="/download/{{ $post->file }}"> <i class="fa fa-download"> Download </i> </a> </span>
                 </footer>
 
             </section>
