@@ -17,6 +17,7 @@ O sistema consiste em um ambiente virtual para disciplinas de uma instituição.
  * No terminal execute: php artisan key:generate
  * Criar a base de dados no mysql, e mudar as configurações no arquivo (.env)
  * No terminal execute: php artisan migrate
+ * No terminal execute: php artisan db:seed
  * Executar o servidor do laravel
  
 ## Autores

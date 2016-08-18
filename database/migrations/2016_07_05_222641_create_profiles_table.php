@@ -22,7 +22,7 @@ class CreateProfilesTable extends Migration
             $table->string('telephone', 20);
             $table->string('cellphone', 20);
             $table->string('cape', 255);
-            $table->string('image', 255);
+            $table->string('image', 255)->default('sem_foto.png');
             $table->text('about');
             $table->timestamps();
         });

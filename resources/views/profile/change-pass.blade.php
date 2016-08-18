@@ -11,7 +11,7 @@
     @endif
 
     <form method="POST" action="{{ url('/profile/password/'.$user->id) }}" enctype="multipart/form-data"
-          class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+          class="col s10 m8 l6 offset-s1 offset-m2 offset-l3">
         {!! csrf_field() !!}
 
         <div class="row">

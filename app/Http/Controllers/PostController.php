@@ -92,6 +92,7 @@ class PostController extends Controller
                 'id_post' => $post_id,
                 $type => 1
             ]);
+            return response()->json(array('status' => 'sim', 'qtde' => 1));
         } else {
             $rate = Rate::where('id_profile', '=', $profile_id)->where('id_post', '=', $post_id)->first();
             $row = Rate::find($rate->id);
