@@ -7,7 +7,7 @@
         <br>
 
         <section class="input-field col s12">
-            <select>
+            <select class="searchchange" id="searchvalue">
                 <option value="" disabled selected>Disciplinas</option>
                 @foreach($registrations as $registration)
                     @foreach($courses as $course)
@@ -19,19 +19,14 @@
             </select>
             <label>Filtrar Por: </label>
         </section>
-
+        <div id="resultado"></div>
         @forelse($posts as $post)
-
             <section class="section">
                 {!! csrf_field() !!}
                 <header>
                     <div class="chip">
-                        @foreach($users as $user)
-                            @if($post->id_profile == $user->id)
-                                <img src="/image/profile/user/user-id-{{ $user->id }}.jpg" alt="Contact Person">
-                                {{ $user->name }}
-                            @endif
-                        @endforeach
+                        <img src="/image/profile/user/{{ $post->image }}" alt="Contact Person">
+                        {{ $post->name }}
                     </div>
 
                     <h5> {{ $post->title }} </h5>

@@ -20,7 +20,7 @@
 
             <header class="row">
 
-                <div class="capa-perfil" style="background-image: url('/image/profile/cape/cape-id-{{ Auth::user()->id }}.jpg')">
+                <div class="capa-perfil" style="background-image: url('/image/profile/cape/{{ \Illuminate\Support\Facades\DB::table('profiles')->where('id', '=', auth()->user()->id)->value('cape') }}')">
                     <a class="modal-trigger" href="#modal-cape">
                         <i class="fa fa-camera fa-3x"> </i>
                     </a>
@@ -55,7 +55,10 @@
                 <div class="container icone">
                     <div class="row">
                         <div class="col s12 m12 l3">
-                            <a class="modal-trigger upload" href="#modal-image"> <img src="/image/profile/user/user-id-{{ Auth::user()->id }}.jpg" class="responsive-img" id="img-perfil"> <i class="fa fa-camera fa-3x"> </i> </a>
+                            <a class="modal-trigger upload" href="#modal-image">
+                                <img src="/image/profile/user/{{ \Illuminate\Support\Facades\DB::table('profiles')->where('id', '=', auth()->user()->id)->value('image') }}" class="responsive-img" id="img-perfil">
+                                <i class="fa fa-camera fa-3x"> </i>
+                            </a>
                         </div>
                         <div id="modal-image" class="modal">
                             <form method="POST" action="{{ url('/profile/update-image') }}" enctype="multipart/form-data">
@@ -85,7 +88,7 @@
                         <div class="col s12 m12 l9 profile-menu hide-on-med-and-down">
                             <ul class="N/A transparent">
                                 <li> <a class="menu" href="{{ url('/timeline') }}"> POSTS </a> </li>
-                                <li> <a class="menu" href="{{ url('/courses/'. Auth::user()->id ) }}"> DISCIPLINAS </a> </li>
+                                <li> <a class="menu" href="{{ url('/courses') }}"> DISCIPLINAS </a> </li>
                                 <li> <a class="menu" href="{{ url('/post') }}"> POSTAR </a> </li>
                             </ul>
                         </div>

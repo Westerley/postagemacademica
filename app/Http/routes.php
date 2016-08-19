@@ -24,10 +24,12 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::post('/post', 'PostController@store');
 
-    Route::get('/courses/{id}', 'CourseController@index');
+    Route::get('/courses', 'CourseController@index');
 
     Route::post('/courses/save/{id}', 'CourseController@save');
 
     Route::post('/rating', 'PostController@rating');
+
+    Route::post('/search', 'HomeController@search');
 
 });

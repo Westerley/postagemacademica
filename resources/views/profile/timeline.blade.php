@@ -6,30 +6,22 @@
         <div class="card-panel white">
             <p> Vinculo:
                 <span>
-                    @forelse($profiles as $profile)
-                        @if($profile->id_occupation == 1)
-                            Estudante
-                        @else
-                            Professor
-                        @endif
-                    @empty
-                        Não Disponível
-                    @endforelse
+                    @if($profile->id_occupation == 1)
+                        Estudante
+                    @else
+                        Professor
+                    @endif
                 </span>
             </p>
             <p> Nome:              <span> {{ Auth::user()->name }} </span> </p>
             <p> Email:             <span> {{ Auth::user()->email }} </span> </p>
             <p> Celular:
                 <span>
-                    @forelse($profiles as $profile)
-                        @if( !empty($profile->cellphone) )
-                            {{ $profile->cellphone }}
-                        @else
-                            Não Disponível
-                        @endif
-                    @empty
+                    @if( !empty($profile->cellphone) )
+                        {{ $profile->cellphone }}
+                    @else
                         Não Disponível
-                    @endforelse
+                    @endif
                 </span>
             </p>
             <p> Posts Realizados:
@@ -70,7 +62,7 @@
 
                 <header>
                     <div class="chip">
-                        <img src="/image/profile/user/user-id-{{ Auth::user()->id }}.jpg" alt="Contact Person">
+                        <img src="/image/profile/user/{{ $profile->image }}" alt="Contact Person">
                         {{ Auth::user()->name }}
                     </div>
 

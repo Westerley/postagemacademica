@@ -19,6 +19,31 @@ $(document).ready(function() {
         });
     });
 
+    $(".searchchange").on('change', function () {
+        event.preventDefault();
+        id = $("#searchvalue").val();
+        $.post("/search", {
+            id: id,
+            _token: $('input[name="_token"]').attr("value")}, function (response) {
+            if(response.status == "sim")
+            {
+                /*var retorno = false;
+                $.each(data, function(i, item) {
+
+                    var mensagem = '<div lang="' + item.id + '" categoria="' + item.id_categoria + '" class="section posicao">';
+                    mensagem +=     '<h5>' + item.titulo + '</h5>';
+                    mensagem +=     '<p>' + item.conteudo + '</p>';
+                    mensagem +=     '<div> <p> Autor: ' + item.nome_pessoa + '</p>';
+                    mensagem += 'Download: <a href="anexos/' + item.arquivo + '"> ' + item.arquivo + ' </a> </div>';
+                    mensagem += '  </div><div class="divider"> </div><br>';
+                    $('#resultado').append(mensagem);
+                    retorno = true;
+
+                });*/
+            }
+        });
+    });
+
     $('.modal-trigger').leanModal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background

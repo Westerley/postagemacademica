@@ -78,17 +78,17 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">mail</i>
-                            <input id="email" name="email" type="email" required class="validate"
+                            <input id="email-login" name="email" type="email" required class="validate"
                                    value="{{ old('email') }}">
-                            <label for="email">Email</label>
+                            <label for="email-login">Email</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock</i>
-                            <input id="password" name="password" type="password" required class="validate">
-                            <label for="password">Senha</label>
+                            <input id="password-login" name="password" type="password" required class="validate">
+                            <label for="password-login">Senha</label>
                         </div>
                     </div>
 

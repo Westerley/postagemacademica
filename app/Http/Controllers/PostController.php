@@ -22,11 +22,11 @@ class PostController extends Controller
     public function index(Post $post, Profile $profile)
     {
         $posts = $post->where('id_profile', auth()->user()->id)->orderBy('id', 'desc')->get();
-        $profile = $profile->where('id_user', auth()->user()->id)->get();
+        $profile = $profile->where('id_user', auth()->user()->id)->first();
         $registrations = Registration::where('id_profile', '=', auth()->user()->id)->get();
         $courses = Course::all();
         return view('profile.timeline')->with('posts', $posts)
-                                       ->with('profiles', $profile)
+                                       ->with('profile', $profile)
                                        ->with('registrations', $registrations)
                                        ->with('courses', $courses);
     }

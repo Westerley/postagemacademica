@@ -15,9 +15,9 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $registrations = Registration::where('id_profile', '=', $id)->get();
+        $registrations = Registration::where('id_profile', '=', auth()->user()->id)->get();
         $courses = Course::get();
         return view('profile.courses')->with('courses', $courses)->with('registrations', $registrations);
     }

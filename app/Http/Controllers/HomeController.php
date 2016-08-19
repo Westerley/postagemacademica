@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Post;
+use App\Profile;
 use App\Rate;
 use App\Registration;
 use App\Course;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller
 {
@@ -35,10 +38,11 @@ class HomeController extends Controller
         $courses = Course::all();
 
         $posts = DB::table('registrations')
-            ->join('posts', function ($join) {
-                $join->on('posts.id_course', '=', 'registrations.id_courses')
-                    ->where('registrations.id_profile', '=', auth()->user()->id);
-            })
+            ->join('posts', 'posts.id_course', '=', 'registrations.id_courses')
+            ->join('profiles', 'profiles.id', '=', 'posts.id_profile')
+            ->join('users', 'users.id', '=', 'profiles.id_user')
+            ->where('registrations.id_profile', '=', auth()->user()->id)
+            ->select('users.name', 'profiles.image', 'posts.id', 'posts.title', 'posts.content', 'posts.file')
             ->orderBy('posts.id', 'desc')->get();
 
         $ratingProfiles = DB::table('users')
@@ -66,5 +70,15 @@ class HomeController extends Controller
                         ->with('users', $user)
                         ->with('ratingPosts', $ratingPosts)
                         ->with('ratingProfiles', $ratingProfiles);
+    }
+
+    public function search()
+    {
+        $id_course = Input::get('search');
+
+        $posts = Post::where('id_course', '=', $id_course)->get();
+
+        return response()->json(array('status' => 'sim', 'posts' => $posts));
+
     }
 }
